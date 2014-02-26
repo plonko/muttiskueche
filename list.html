@@ -1,0 +1,17 @@
+<div class="posts" ng-controller="ListCtrl">
+    <h1 class="content-subhead">Recent Posts</h1>
+
+    <section class="post" ng-repeat="recipe in recipes | orderByPriority | orderBy:'name'">
+        <header class="post-header">
+            <h2 class="post-title">{{recipe.name}}</h2>
+            <p class="post-meta">
+                By <a class="post-author" href="#">Mummy</a> s
+            </p>
+        </header>
+        <div class="post-description">
+            <p>
+               
+            </p>
+        </div>
+    </section>
+</div>

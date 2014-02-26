@@ -48,23 +48,7 @@
 
     <div class="content pure-u-1 pure-u-med-3-4">
         <div>
-            <div class="posts" ng-controller="ListCtrl">
-                <h1 class="content-subhead">Recent Posts</h1>
-
-                <section class="post" ng-repeat="recipe in recipes | orderByPriority | orderBy:'name'">
-                    <header class="post-header">
-                        <h2 class="post-title">{{recipe.name}}</h2>
-                        <p class="post-meta">
-                            By <a class="post-author" href="#">Mummy</a> s
-                        </p>
-                    </header>
-                    <div class="post-description">
-                        <p>
-                           
-                        </p>
-                    </div>
-                </section>
-            </div>
+            <div ng-view></div>
 
             <div class="footer">
                 <div class="pure-menu pure-menu-horizontal pure-menu-open">
@@ -79,6 +63,8 @@
     </div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.12/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.13/angular-resource.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.13/angular-route.min.js"></script>
 <script src="https://cdn.firebase.com/v0/firebase.js"></script>
 <script src="https://cdn.firebase.com/libs/angularfire/0.6.0/angularfire.min.js"></script>
 <script src="js/app.js"></script>
