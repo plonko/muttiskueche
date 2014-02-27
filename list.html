@@ -2,7 +2,7 @@
     <a href="#/new"><i class="icon-plus-sign"></i>New</a>
     <h1 class="content-subhead">Recent Posts</h1>
 
-    <section class="post" ng-repeat="recipe in recipes | orderByPriority | orderBy:'name'">
+    <section class="post" ng-repeat="recipe in recipes | orderByPriority | filter:search | orderBy:'name'">
         <a href="#/edit/{{recipe.$id}}"><i class="icon-pencil"></i>Edit</a>
         <header class="post-header">
             <h2 class="post-title">{{recipe.name}}</h2>
