@@ -6,20 +6,20 @@ app.factory('Recipes', function($firebase) {
 
 app.config(function($routeProvider) {
     $routeProvider
-        .when('/', {
-            controller:'ListCtrl',
-            templateUrl:'list.html'
-        })
-        // .when('/edit/:projectId', {
-        //     controller:'EditCtrl',
-        //     templateUrl:'detail.html'
-        // })
-        .when('/new', {
-            controller:'CreateCtrl',
-            templateUrl:'detail.html'
-        })
-        .otherwise({
-            redirectTo:'/'
+    .when('/', {
+        controller:'ListCtrl',
+        templateUrl:'list.html'
+    })
+    // .when('/edit/:projectId', {
+    //     controller:'EditCtrl',
+    //     templateUrl:'detail.html'
+    // })
+    .when('/new', {
+        controller:'CreateCtrl',
+        templateUrl:'detail.html'
+    })
+    .otherwise({
+        redirectTo:'/'
     });
 });
 
@@ -29,8 +29,16 @@ app.controller('ListCtrl', function ($scope, Recipes) {
 
 app.controller('CreateCtrl', function($scope, $location, $timeout, Recipes) {
     $scope.save = function() {
-        Recipes.$add($scope.recipe, function() {
-            $timeout(function() { $location.path('/'); });
-        });
+        console.log('ooh la la deux!');
+        Recipes.$add($scope.recipe);
+        $location.path('/');
+        // Cannot get this add callback to work!! Need to revisit. Location change works sychronously for now.
+        // function() {
+        //            console.log('ooh la la une!');
+        //            $timeout(function() {
+        //                console.log('ooh la la!');
+        //                $location.path('/');
+        //            }, 400);
+        //        }
     };
 });
