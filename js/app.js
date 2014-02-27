@@ -1,7 +1,9 @@
 var app = angular.module("kueche", ["ngRoute", "firebase"]);
 
-app.factory('Recipes', function($firebase) {
-  return $firebase(new Firebase('https://fiery-fire-291.firebaseio.com/'));
+app.value('fbURL', 'https://fiery-fire-291.firebaseio.com/');
+
+app.factory('Recipes', function($firebase, fbURL) {
+  return $firebase(new Firebase(fbURL));
 });
 
 app.config(function($routeProvider) {
@@ -10,10 +12,10 @@ app.config(function($routeProvider) {
         controller:'ListCtrl',
         templateUrl:'list.html'
     })
-    // .when('/edit/:projectId', {
-    //     controller:'EditCtrl',
-    //     templateUrl:'detail.html'
-    // })
+    .when('/edit/:recipeId', {
+        controller:'EditCtrl',
+        templateUrl:'detail.html'
+    })
     .when('/new', {
         controller:'CreateCtrl',
         templateUrl:'detail.html'
@@ -29,7 +31,6 @@ app.controller('ListCtrl', function ($scope, Recipes) {
 
 app.controller('CreateCtrl', function($scope, $location, $timeout, Recipes) {
     $scope.save = function() {
-        console.log('ooh la la deux!');
         Recipes.$add($scope.recipe);
         $location.path('/');
         // Cannot get this add callback to work!! Need to revisit. Location change works sychronously for now.
@@ -40,5 +41,21 @@ app.controller('CreateCtrl', function($scope, $location, $timeout, Recipes) {
         //                $location.path('/');
         //            }, 400);
         //        }
+    };
+});
+
+app.controller('EditCtrl',
+  function($scope, $location, $routeParams, $firebase, fbURL) {
+    var recipeUrl = fbURL + $routeParams.recipeId;
+    $scope.recipe = $firebase(new Firebase(recipeUrl));
+
+    $scope.destroy = function() {
+      $scope.recipe.$remove();
+      $location.path('/');
+    };
+
+    $scope.save = function() {
+      $scope.recipe.$save();
+      $location.path('/');
     };
 });
