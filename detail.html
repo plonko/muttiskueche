@@ -13,7 +13,8 @@
         <label>Ingredients</label>
         <a class="pure-button pure-button-primary" ng-click="addIngredient()">Add ingredient</a>
             
-        <div class="pure-g" ng-repeat="ingredient in recipe.ingredients" ng-form="ingredients-form">
+        <div class="pure-g" ng-repeat="ingredient in recipe.ingredients" ng-form="ingredients_form" required>
+
             <div class="pure-u-8-24">
                 <input class="pure-input-1" type="text" ng-model="ingredient.name" placeholder="Ingredient"/>
             </div>
@@ -24,14 +25,14 @@
                 <input class="pure-input-1" type="text" ng-model="ingredient.method" placeholder="Method"/>
             </div>
             <div class="pure-u-4-24">
-                <button class="pure-button pure-button-primary pure-input-1" ng-click="removeIngredient(ingredient)">
+                <button class="pure-button pure-button-primary pure-input-1" ng-click="removeIngredient(ingredient)" ng-disabled="recipe.ingredients.length<=1">
                     <i class="icon-trash">Remove</i>
                 </button>
             </div>
         </div>
 
         <label>Method</label>
-        <textarea name="method" ng-model="recipe.method"></textarea>
+        <textarea class="pure-input-1" name="method" ng-model="recipe.method"></textarea>
 
         <a href="#/" class="btn">Cancel</a>
 
