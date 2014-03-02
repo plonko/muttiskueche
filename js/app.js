@@ -30,6 +30,7 @@ app.controller('ListCtrl', function ($scope, Recipes) {
 });
 
 app.controller('CreateCtrl', function($scope, $location, $timeout, Recipes) {
+    $scope.recipe = {ingredients: [{id:1}]};
     $scope.save = function() {
         Recipes.$add($scope.recipe);
         $location.path('/');
@@ -42,7 +43,19 @@ app.controller('CreateCtrl', function($scope, $location, $timeout, Recipes) {
         //            }, 400);
         //        }
     };
+    // Stolen from https://www.twilio.com/blog/2013/12/votr-part-5-angularjs-crud-restful-apis.html
+    $scope.addIngredient = function() {
+        $scope.recipe.ingredients.push({id: $scope.recipe.ingredients.length+1});
+    };
+    $scope.removeIngredient = function(ingredient) {
+        $scope.recipe.ingredients.splice(ingredient.id-1, 1);
+        // need to make sure id values run from 1..x (web service constraint)
+        $scope.recipe.ingredients.forEach(function(ingredient, index) {
+            ingredient.id = index+1;
+        });
+    };
 });
+
 
 app.controller('EditCtrl',
   function($scope, $location, $routeParams, $firebase, fbURL) {
@@ -57,5 +70,15 @@ app.controller('EditCtrl',
     $scope.save = function() {
       $scope.recipe.$save();
       $location.path('/');
+    };
+    $scope.addIngredient = function() {
+        $scope.recipe.ingredients.push({id: $scope.recipe.ingredients.length+1});
+    };
+    $scope.removeIngredient = function(ingredient) {
+        $scope.recipe.ingredients.splice(ingredient.id-1, 1);
+        // need to make sure id values run from 1..x (web service constraint)
+        $scope.recipe.ingredients.forEach(function(ingredient, index) {
+            ingredient.id = index+1;
+        });
     };
 });
