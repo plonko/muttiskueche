@@ -1,0 +1,51 @@
+.pure-form input[type="text"], 
+.pure-form textarea,
+.pure-form button {
+    margin-bottom: 20px;
+    margin-top: 0;
+}
+
+.pure-form label {
+    margin-bottom: 8px;
+}
+
+/*As suggested http://purecss.io/buttons/#customizing-buttons*/
+.button-xsmall {
+    font-size: 70%;
+}
+
+.button-small {
+    font-size: 90%;
+}
+
+.button-large {
+    font-size: 110%;
+}
+
+.button-xlarge {
+    font-size: 125%;
+}
+
+.button-success,
+.button-danger,
+.button-warning,
+.button-secondary {
+    color: white;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+.button-success {
+    background: rgb(28, 184, 65); /* this is a green */
+}
+
+.button-danger {
+    background: rgb(202, 60, 60); /* this is a maroon */
+}
+
+.button-warning {
+    background: rgb(223, 117, 20); /* this is an orange */
+}
+
+.button-secondary {
+    background: rgb(66, 184, 221); /* this is a light blue */
+}
