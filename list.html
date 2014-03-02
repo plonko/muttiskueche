@@ -10,10 +10,16 @@
                 By <a class="post-author" href="#">Mummy</a> s
             </p>
         </header>
-        <div class="post-description">
-            <p>
-
-            </p>
+        <div class="post-intro">
+            <p>{{recipe.intro}}</p>
+        </div>
+        <div class="post-ingredients" ng-repeat="ingredient in recipe.ingredients">
+            <span>{{ingredient.amount}}</span>
+            <span>{{ingredient.name}}</span>
+            <span>{{ingredient.method}}</span>
+        </div>
+        <div class="post-method">
+            <p>{{recipe.method}}</p>
         </div>
     </section>
 </div>
