@@ -49,15 +49,15 @@ app.config(function($routeProvider, $locationProvider) {
 app.controller('LoginCtrl', function ($scope, $timeout, fbURL) {
     var ref = new Firebase(fbURL);
     var auth = new FirebaseSimpleLogin(ref, function(error, user) {
-    $timeout(function() {
-        if (error) {
-               $scope.error = error;
-               console.log(error);
-           } else if (user) {
-               $scope.error = null;
-               console.log('User ID: ' + user.id + ', Provider: ' + user.provider);
-           } else {
-              $scope.error = 'user is logged out';
+        $timeout(function() {
+            if (error) {
+                $scope.error = error;
+                console.log(error);
+            } else if (user) {
+                $scope.error = null;
+                console.log('User ID: ' + user.id + ', Provider: ' + user.provider);
+            } else {
+                $scope.error = 'user is logged out';
            }
         });
     });
