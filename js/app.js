@@ -1,12 +1,28 @@
 var app = angular.module("kueche", ["ngRoute", "firebase"]);
 
+Firebase.enableLogging(true, true);
+
 app.value('fbURL', 'https://fiery-fire-291.firebaseio.com/');
+
+var chatRef = new Firebase('https://fiery-fire-291.firebaseio.com/');
+
+var auth = new FirebaseSimpleLogin(chatRef, function(error, user) {
+    if (error) {
+    // an error occurred while attempting login
+    console.log(error);
+    } else if (user) {
+    // user authenticated with Firebase
+    console.log('User ID: ' + user.id + ', Provider: ' + user.provider);
+    } else {
+    // user is logged out
+    }
+});
 
 app.factory('Recipes', function($firebase, fbURL) {
   return $firebase(new Firebase(fbURL));
 });
 
-app.config(function($routeProvider) {
+app.config(function($routeProvider, $locationProvider) {
     $routeProvider
     .when('/', {
         controller:'ListCtrl',
@@ -18,11 +34,40 @@ app.config(function($routeProvider) {
     })
     .when('/new', {
         controller:'CreateCtrl',
-        templateUrl:'detail.html'
+        templateUrl:'detail.html', 
+        isLogin: true
     })
     .otherwise({
         redirectTo:'/'
     });
+    // configure html5 to get links working
+    // If you don't do this, you URLs will be base.com/#/home rather than base.com/home
+    //$locationProvider.html5Mode(true);
+});
+
+// app.run(function($rootScope, $location) {
+//     $rootScope.$on("$routeChangeStart", function(event, next) {
+//         var userAuthenticated = false; /* Check if the user is logged in */
+
+//         if (!userAuthenticated && next.isLogin) {
+//              You can save the user's location to take him back to the same page after he has logged-in 
+//             //event.preventDefault();
+//             ///$rootScope.savedLocation = $location.url();
+
+//             $location.path('http://www.google.com');
+//             alert('youre not logged in');
+//         }
+//     });
+// });
+
+app.controller('LoginCtrl', function ($scope) {
+    $scope.login = function() {
+        auth.login('password', {
+            email: $scope.loginEmail,
+            password: $scope.loginPassword, 
+            debug: true 
+        });
+    };
 });
 
 app.controller('ListCtrl', function ($scope, Recipes) {
