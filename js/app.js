@@ -1,22 +1,8 @@
 var app = angular.module("kueche", ["ngRoute", "firebase"]);
 
-Firebase.enableLogging(true, true);
+//Firebase.enableLogging(true, true);
 
 app.value('fbURL', 'https://fiery-fire-291.firebaseio.com/');
-
-var chatRef = new Firebase('https://fiery-fire-291.firebaseio.com/');
-
-var auth = new FirebaseSimpleLogin(chatRef, function(error, user) {
-    if (error) {
-    // an error occurred while attempting login
-    console.log(error);
-    } else if (user) {
-    // user authenticated with Firebase
-    console.log('User ID: ' + user.id + ', Provider: ' + user.provider);
-    } else {
-    // user is logged out
-    }
-});
 
 app.factory('Recipes', function($firebase, fbURL) {
   return $firebase(new Firebase(fbURL));
@@ -60,12 +46,25 @@ app.config(function($routeProvider, $locationProvider) {
 //     });
 // });
 
-app.controller('LoginCtrl', function ($scope) {
+app.controller('LoginCtrl', function ($scope, $timeout, fbURL) {
+    var ref = new Firebase(fbURL);
+    var auth = new FirebaseSimpleLogin(ref, function(error, user) {
+    $timeout(function() {
+        if (error) {
+               $scope.error = error;
+               console.log(error);
+           } else if (user) {
+               $scope.error = null;
+               console.log('User ID: ' + user.id + ', Provider: ' + user.provider);
+           } else {
+              $scope.error = 'user is logged out';
+           }
+        });
+    });
     $scope.login = function() {
         auth.login('password', {
             email: $scope.loginEmail,
-            password: $scope.loginPassword, 
-            debug: true 
+            password: $scope.loginPassword
         });
     };
 });
