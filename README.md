@@ -11,3 +11,7 @@ TODO
 * Add rich text editor
 * Handle images
 * In place editing
+
+Refs
+---
+https://medium.com/opinionated-angularjs/techniques-for-authentication-in-angularjs-applications-7bbf0346acec

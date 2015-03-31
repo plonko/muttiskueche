@@ -52,13 +52,14 @@ app.controller('LoginCtrl', function ($scope, $timeout, fbURL) {
         $timeout(function() {
             if (error) {
                 $scope.error = error;
-                console.log(error);
+                console.log(error.code);
+                console.log(error.message);
             } else if (user) {
                 $scope.error = null;
                 console.log('User ID: ' + user.id + ', Provider: ' + user.provider);
             } else {
                 $scope.error = 'user is logged out';
-           }
+            }
         });
     });
     $scope.login = function() {
