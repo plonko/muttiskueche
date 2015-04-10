@@ -15,3 +15,4 @@ TODO
 Refs
 ---
 https://medium.com/opinionated-angularjs/techniques-for-authentication-in-angularjs-applications-7bbf0346acec
+https://www.firebase.com/docs/web/libraries/angular/guide/user-auth.html
