@@ -22,6 +22,30 @@ app.config(function($routeProvider, $locationProvider) {
     });
 });
 
+app.factory("Auth", ["$firebaseAuth",
+    function($firebaseAuth) {
+        var ref = new Firebase("https://fiery-fire-291.firebaseio.com/");
+        return $firebaseAuth(ref);
+    }
+]);
+
+app.controller('LoginCtrl', function ($scope, $timeout) {
+    var ref = new Firebase("https://fiery-fire-291.firebaseio.com/");
+    $scope.login = function() {
+        ref.authWithPassword({
+            email: $scope.loginEmail,
+            password: $scope.loginPassword
+        }, function(error, authData) {
+            if (error) {
+                console.log("Login Failed!", error);
+            } else {
+                console.log("Authenticated successfully with payload:", authData);
+            }
+        });
+    };
+
+});
+
 app.factory("Recipes", ["$firebaseArray",
     function($firebaseArray) {
         var ref = new Firebase("https://fiery-fire-291.firebaseio.com/");
