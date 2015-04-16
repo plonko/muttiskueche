@@ -42,7 +42,6 @@ app.controller("LoginCtrl", ["$scope", "Auth",
                 password: $scope.loginPassword
             }).then(function(authData) {
                 $scope.authData = authData;
-                console.log($scope.authData)
             }).catch(function(error) {
                 $scope.error = error;
             });
@@ -68,7 +67,6 @@ app.controller("ListCtrl", ["$scope", "Recipes", "Auth",
 
         $scope.auth.$onAuth(function(authData) {
             $scope.authData = authData;
-            console.log(authData)
         });
     }
 ])

@@ -39,10 +39,6 @@
             </form>
 
             <div ng-controller="LoginCtrl">
-            <div ng-show="authData.uid">butthole</div>
-              <div ng-show="authData">
-                <button ng-click="auth.$unauth()">Logout</button>
-              </div>
                 <p ng-if="authData">Logged in user: <strong>{{ authData.uid }}</strong></p>
                 <p ng-if="error">Error: <strong>{{ error }}</strong></p>
 
@@ -53,6 +49,9 @@
                     </fieldset>
                     <button type="submit" href="#" class="pure-button pure-input-1">Login</button>
                 </form>
+                <div ng-show="authData">
+                    <button ng-click="auth.$unauth()">Logout</button>
+                </div>
             </div>
             
             <nav class="nav">
