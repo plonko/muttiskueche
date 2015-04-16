@@ -29,22 +29,29 @@ app.factory("Auth", ["$firebaseAuth",
     }
 ]);
 
-app.controller('LoginCtrl', function ($scope, $timeout) {
-    var ref = new Firebase("https://fiery-fire-291.firebaseio.com/");
-    $scope.login = function() {
-        ref.authWithPassword({
-            email: $scope.loginEmail,
-            password: $scope.loginPassword
-        }, function(error, authData) {
-            if (error) {
-                console.log("Login Failed!", error);
-            } else {
-                console.log("Authenticated successfully with payload:", authData);
-            }
-        });
-    };
+// and use it in our controller
+app.controller("LoginCtrl", ["$scope", "Auth",
+    function($scope, Auth) {
+        $scope.login = function() {
+            $scope.auth = Auth;
+            $scope.authData = null;
+            $scope.error = null;
 
-});
+            $scope.auth.$authWithPassword({
+                email: $scope.loginEmail,
+                password: $scope.loginPassword
+            }).then(function(authData) {
+                $scope.authData = authData;
+                console.log($scope.authData)
+            }).catch(function(error) {
+                $scope.error = error;
+            });
+            $scope.auth.$onAuth(function(authData) {
+                  $scope.authData = authData;
+            });
+        };
+    }
+]);
 
 app.factory("Recipes", ["$firebaseArray",
     function($firebaseArray) {
@@ -53,9 +60,16 @@ app.factory("Recipes", ["$firebaseArray",
     }
 ]);
 
-app.controller("ListCtrl", ["$scope", "Recipes",
-    function($scope, Recipes) {
+app.controller("ListCtrl", ["$scope", "Recipes", "Auth",
+    function($scope, Recipes, Auth) {
+        $scope.auth = Auth;
+        var authData = null;
         $scope.recipes = Recipes;
+
+        $scope.auth.$onAuth(function(authData) {
+            $scope.authData = authData;
+            console.log(authData)
+        });
     }
 ])
 
