@@ -1,5 +1,5 @@
 <div class="posts" ng-controller="ListCtrl">
-    <a href="#/new"><i class="icon-plus-sign"></i>New</a>
+    <a href="#/new" ng-show="authData"><i class="icon-plus-sign"></i>New</a>
     <h1 class="content-subhead">Recent Posts</h1>
 
     <section class="post" ng-repeat="recipe in recipes | orderBy:'name' | filter:search ">

@@ -99,8 +99,8 @@ app.controller("ListCtrl", ["$scope", "Recipes", "Auth",
     }
 ])
 
-app.controller('CreateCtrl', ["$scope", "$location", "$timeout", "Recipes", "currentAuth",
-    function($scope, $location, $timeout, Recipes, currentAuth) {
+app.controller('CreateCtrl', ["$scope", "$location", "$timeout", "Recipes",
+    function($scope, $location, $timeout, Recipes) {
         $scope.recipe = {ingredients: [{id:1}]};
         $scope.save = function() {
             Recipes.$add($scope.recipe);
